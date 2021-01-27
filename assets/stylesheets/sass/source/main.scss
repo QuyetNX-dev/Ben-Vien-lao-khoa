@@ -1,0 +1,20 @@
+// -----------------------------------------------------------------------------
+// This file contains fonts, helpers, stylesheets default
+// -----------------------------------------------------------------------------
+
+@charset "UTF-8";
+
+@import "abstracts/_variables";
+@import "abstracts/_mixins";
+
+@import "base/_default";
+@import "base/fonts";
+
+@import "layout/general";
+@import "pages/home.scss";
+@import "pages/chi-tiet-bs.scss";
+@import "pages/doingu_bs.scss";
+@import "pages/chuyen-muc.scss";
+@import "pages/thong-tin-chi-tiet.scss";
+@import "pages/y-kien.scss";
+@import "pages/dat-lich-kham.scss";
