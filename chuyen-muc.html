@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Chuyên mục</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css">
 	<link rel="stylesheet" href="./assets/library/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" href="./assets/stylesheets/sass/dist/main.css">
@@ -423,56 +423,20 @@
 	<script src="./assets/js/main.js"></script>
 	<script>
 		
-		//hàm tạo 1 iframe và phát youtube khi lấy được mã api
-		var heightVideo = $('.poster-yt').height();
-		var player;
-		function onYouTubeIframeAPIReady() {
-			player = new YT.Player('player1', {
-				height: heightVideo,
-				width: '100%',
-				videoId: 'hSJH1gbuCU8',
-				events: {
-					'onReady': onPlayerReady
-				}
-			});
-		}
-		function onPlayerReady(event) {
-			event.target.playVideo();
-		}
-		//chay video youtube
-		$('.poster-yt').click(function(){
-			$(this).toggleClass('js-play-yt')
-
-			var tag = document.createElement('script');
-			tag.src = "https://www.youtube.com/iframe_api";
-			var firstScriptTag = document.getElementsByTagName('script')[0];
-			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-		})
-
-		//load plubgin-facebook
-		window.fbAsyncInit = function() {
-			FB.init({
-			appId            : 'www.benhvienlaokhoa.vn',
-			autoLogAppEvents : true,
-			xfbml            : true,
-			version          : 'v9.0'
-			});
-		};
-	
-		setTimeout(function(){
-			(function(d, s, id){
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) {return;}
-				js = d.createElement(s); js.id = id;
-				js.src = "https://connect.facebook.net/en_US/sdk.js";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-		},3000)
+		//khai báo đối tượng mainjs
+		var main = new MainQuety()
 
 		$(function(){
-			runMultipleSwiperBanner('.block-banner', 1, 0)
-			runMultipleSwiper('.doi-ngu', 4, 20)
-			gotoTopQuety('js-scroll-top')
+
+			//đợi thời gian load iframe facebook
+			setTimeout(main.getApiFacebook(),3000)
+
+			//lên top
+			main.gotoTopQuety('js-scroll-top')
+			
+			//scroll hiệu ứng header
+			main.handScrollHeaderMenu()
+
 		})
 	</script>
 </body>

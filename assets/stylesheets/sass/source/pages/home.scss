@@ -1,4 +1,19 @@
 .header{
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 9999;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #fff;
+    transition: all 0.3s;
+    transform: translateY(0);
+    &.js-hidden-menu{
+        transform: translateY(-106px);
+        @include mediaMaxWidth(1200px){
+            transform: translateY(-83px);
+        }
+    }
     .top-header{
         padding: 15px 0;
         .wrap-label{
@@ -7,9 +22,23 @@
             align-items: center;
             ._logo{
                 width: calc((100% / 12) * 3);
+                @include mediaMaxWidth(1200px){
+                    width: calc((100% / 12) * 2);
+                    
+                }
+                img{
+                    display: block;
+                    @include mediaMaxWidth(1200px){
+                        width: 100%;
+                        height: auto;
+                    }
+                }
             }
             .top-header__cennter{
                 width: calc((100% / 12) * 5);
+                @include mediaMaxWidth(1200px){
+                    width:  calc((100% / 12) * 6);
+                }
                 .__slogan{
                     text-align: center;
                     font-family: 'Open Sans', sans-serif;
@@ -18,6 +47,9 @@
                     color: #0a9bdb;
                     text-align: center;
                     margin-bottom: 7px;
+                    @include mediaMaxWidth(1200px){
+                        font-size: 16px;
+                    }
                 }
                 .__info{
                     text-align: center;
@@ -57,6 +89,10 @@
                             border: solid 1px #d7d7d7;
                             outline: 0;
                             padding: 0 15px;
+                            @include mediaMaxWidth(1200px){
+                                height: 33px;
+
+                            }
                         }
                         button{
                             height: 100%;
@@ -79,8 +115,15 @@
                         color: #fff;
                         background-color: #0a9bdb;
                         border-radius: 5px;
+                        @include mediaMaxWidth(1200px){
+                            height: 33px;
+                            line-height: 33px;
+                        }
                         a{
                             color: #fff;
+                            @include mediaMaxWidth(1200px){
+                                font-size: 13px;
+                            }
                         }
                     }
                 }
@@ -106,10 +149,16 @@
                 width: calc(100% - 42px);
                 display: flex;
                 justify-content: space-between;
+                @include mediaMaxWidth(1200px){
+                    padding: 0 15px;
+                }
                 .item{
                     padding: 0 15px;
                     position: relative;
                     transition: all 0.3s;
+                    @include mediaMaxWidth(1200px){
+                        padding: 0 5px;
+                    }
                     .title-item{
                         text-align: center;
                         text-transform: uppercase;
@@ -117,6 +166,9 @@
                         height: 40px;
                         line-height: 40px;
                         display: inline-block;
+                        @include mediaMaxWidth(1200px){
+                            font-size: 12px;
+                        }
                     }
                     .child1{
                         opacity: 0;
@@ -127,17 +179,40 @@
                         width: 440px;
                         padding: 10px;
                         left: 0;
-                        background: #fff;
+                        background: #cbe5ff;
                         border-top: solid 3px #fdb34d;
                         bottom: -20px;
                         transform: translateY(100%);
+
                         .child-item{
                             border-bottom: solid 1px #e4e4e4;
-                            a{
-                                color: #1877a3;
+                            > a{
+                                color: #000;
                                 line-height: 33px;
                                 height: 32px;
                                 display: block;
+                                font-size: 13px;
+                                font-weight: bold;
+                                padding: 0 10px;
+                                transition: 0.2s;
+                                &:hover{
+                                    background: #006594;
+                                    color: #fff;
+                                }
+                            }
+                        }
+                        .child2{
+                            border-left: solid 1px #cacaca;
+                            margin: 0 10px;
+                            .child-item2{
+                                a{
+                                    line-height: 33px;
+                                    height: 32px;
+                                    display: block;
+                                    font-size: 13px;
+                                    padding: 0 10px;
+                                    color: #7d7d7d;
+                                }
                             }
                         }
                     }
@@ -205,6 +280,9 @@
                     height: auto;
                     margin: auto;
                     margin-bottom: 17px;
+                    @include mediaMaxWidth(1024px){
+                        width: 45px;
+                    }
                 }
                 .__text-tile{
                     display: block;
@@ -212,6 +290,9 @@
                     font-size: 16px;
                     color: #222222;
                     font-weight: 600;
+                    @include mediaMaxWidth(1024px){
+                        font-size: 14px;
+                    }
                 }
             }
         }
@@ -233,12 +314,18 @@
                 color: #006594;
                 font-size: 30px;
                 font-weight: 700;
+                @include mediaMaxWidth(1024px){
+                    font-size: 20px;
+                }
             }
             .sub-name{
                 color: #006594;
                 font-size: 18px;
                 margin-bottom: 15px;
                 text-transform: uppercase;
+                @include mediaMaxWidth(1024px){
+                    font-size: 14px;
+                }
             }
             ._icon{
                 padding-bottom: 30px;
@@ -593,6 +680,13 @@
                 .logo-ft{
                     display: block;
                     margin-bottom: 13px;
+                    img{
+                        @include mediaMaxWidth(1200px){
+                            display: block;
+                            height: auto;
+                            width: 220px;
+                        }
+                    }
                 }
                 .__item-title{
                     font-weight: bold;

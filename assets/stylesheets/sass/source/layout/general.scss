@@ -4,6 +4,9 @@
 	@include mediaMaxWidth(1440px){
 		max-width: 1200px;
 	}
+	@include mediaMaxWidth(1200px){
+		padding: 0 30px;
+	}
 }
 .title-label{
 	width: 365px;
@@ -18,6 +21,12 @@
 	color: #fff;
 	font-size: 26px;
 	font-weight: 700;
+	@include mediaMaxWidth(1024px){
+		font-size: 20px;
+		height: 45px;
+		width: 296px;
+		line-height: 45px;
+	}
 }
 .__item--label{
 	.__w-img{
@@ -45,6 +54,9 @@
 	border-radius: 7px;
 	height: 250px;
 	overflow: hidden;
+	@include mediaMaxWidth(1024px){
+		height: 137px;
+	}
 	img{
 		display: block;
 		position: absolute;

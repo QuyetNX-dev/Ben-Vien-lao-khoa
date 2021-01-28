@@ -4,6 +4,9 @@
             .title-label-right{
                 font-size: 30px;
                 margin-bottom: 24px;
+                @include mediaMaxWidth(1024px){
+                    font-size: 25px;
+                }
             }
             .team_doctor{
                 display: flex;
