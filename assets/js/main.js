@@ -37,11 +37,12 @@
 //hàm tạo 1 iframe và phát youtube khi lấy được mã api
 var heightVideo = $('.poster-yt').height();
 var player;
+var videoId = 'W5cPSwcrCrs'
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player1', {
         height: heightVideo,
         width: '100%',
-        videoId: 'W5cPSwcrCrs',
+        videoId: videoId,
         events: {
             'onReady': onPlayerReady
         }
@@ -71,6 +72,7 @@ class MainQuety {
     }
     getApiYoutube(attrTagName){
         $(attrTagName).click(function(){
+            videoId = '6fsFbUpZxG0'
 			$(this).toggleClass('js-play-yt')
 
 			var tag = document.createElement('script');
@@ -150,18 +152,18 @@ class MainQuety {
 
     runMultipleSwiper(paramSwiperSlide){
 
-        var {nameAttr} = paramSwiperSlide
-        var {slidesPerView} = paramSwiperSlide
-        var {spaceBetween} = paramSwiperSlide
-        var {loop} = paramSwiperSlide
-        var {autoSlide} = paramSwiperSlide
-        var {breakpoints} = paramSwiperSlide
-        var {speed} = paramSwiperSlide
+        var {nameAttr} = paramSwiperSlide,
+        {slidesPerView} = paramSwiperSlide,
+        {spaceBetween} = paramSwiperSlide,
+        {loop} = paramSwiperSlide,
+        {autoSlide} = paramSwiperSlide,
+        {breakpoints} = paramSwiperSlide,
+        {speed} = paramSwiperSlide,
 
         new Swiper(`${nameAttr} .swiper-container`, {
             slidesPerView,
             spaceBetween,
-            speed,
+            speed : speed ? speed : 400,
             navigation: {
                 nextEl: `${nameAttr} .swiper-button-next`,
                 prevEl: `${nameAttr} .swiper-button-prev`,
