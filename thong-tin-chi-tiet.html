@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Thông tin chi tiết</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css">
 	<link rel="stylesheet" href="./assets/library/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" href="./assets/stylesheets/sass/dist/main.css">
@@ -378,20 +378,9 @@
         var main = new MainQuety()
         
 		$(function(){
-            //lấy api youtube
-			main.getApiYoutube('.poster-yt')
 
-            //đợi thời gian load iframe facebook
-            setTimeout(main.getApiFacebook(),3000)
-
-            //lên top
-            main.gotoTopQuety('js-scroll-top')
-
-            //scroll hiệu ứng header
-            main.handScrollHeaderMenu()
-
-            // tham số slide đội ngũ
-			var paramSwiperSlideTeam = {
+            // tham số slide bài viết liên quan
+			var paramSwiperSlidePosts = {
 				nameAttr: '.news-relate',
 				slidesPerView: 1,
                 spaceBetween: 15,
@@ -422,7 +411,7 @@
 
 			}
 
-			main.runMultipleSwiperParam(paramSwiperSlideTeam)
+			main.runMultipleSwiperParam(paramSwiperSlidePosts)
 		})
 	</script>
 </body>
