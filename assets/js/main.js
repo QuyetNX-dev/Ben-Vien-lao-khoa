@@ -70,6 +70,7 @@ class MainQuety {
             $footer: $('.footer')
         }
     }
+
     getApiYoutube(attrTagName){
         $(attrTagName).click(function(){
             videoId = '6fsFbUpZxG0'
@@ -81,6 +82,7 @@ class MainQuety {
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 		})
     }
+
     getApiFacebook(){
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -187,6 +189,158 @@ class MainQuety {
 
 }
 
+class ValidationForm {
+    constructor(){
+        this.FormContact = {
+            error: '',
+            g_getElmentByTagName : {
+                $idTitleContact: $('#user_title_dl'),
+                $idInputName: $('#contact_name_detail'),
+                $idInputEmail: $('#contact_email_detail'),
+                $idInputTel: $('#contact_tel_detail'),
+                // $idInputMessage: $('#contact_message_detail'),
+            }   
+        },
+        this.FormOrderDoctor = {
+            error: '',
+            g_getElmentByTagName : {
+                $dataNameDoctor: $('#user_doctor_order'),
+                $idSelectDoctor: $('#user_select_doctor'),
+                $idInputName: $('#user_name_order'),
+                $idInputEmail: $('#user_email_order'),
+                $idInputTel: $('#user_tel_order'),
+                $idInputDate: $('#user_date_order'),
+                $idInputHour: $('#user_hour_order'),
+                $idInputMessage: $('#user_message_order'),
+            }
+        }
+    }
+    // thẩm định form liên hệ
+    static checkFormContac(){
+        var is = new ValidationForm()
+        var {$idInputName} = is.FormContact.g_getElmentByTagName
+        var {$idInputEmail} = is.FormContact.g_getElmentByTagName
+        var {$idInputTel} = is.FormContact.g_getElmentByTagName
+        // var {$idInputMessage} = is.FormContact.g_getElmentByTagName
+
+        var {error} = is.FormContact;
+        var check_name = $idInputName.val();
+        var check_email = $idInputEmail.val();
+        var check_tel = $idInputTel.val();
+        // var check_message = $idInputMessage.val();
+        //var check_captcha = document.getElementById('captcha').value;
+
+        if(check_name.length < 4) error += "- Bạn chưa nhập tên\n";
+        if(check_email.length < 4) error += "- Bạn chưa nhập email\n";
+        if(check_tel.length < 8) error += "- Bạn chưa nhập số điện thoại\n";
+        //if(check_captcha.length < 4) error += "- Bạn chưa nhập Mã bảo vệ\n";
+
+        if(error == ""){
+            return {
+                check_name, 
+                check_email, 
+                check_tel, 
+                $idInputName, 
+                $idInputEmail, 
+                $idInputTel
+            }
+        }else{
+            alert(error)
+            return false
+        }
+
+    }
+    static checkFormOrder(){
+        var is = new ValidationForm()
+        var {$dataNameDoctor,
+            $idSelectDoctor,
+            $idInputName,
+            $idInputEmail,
+            $idInputTel,
+            $idInputHour,
+            $idInputDate,
+            $idInputMessage
+        } = is.FormOrderDoctor.g_getElmentByTagName
+        var {error} = is.FormOrderDoctor;
+
+        var check_name = $idInputName.val(),
+            check_email = $idInputEmail.val(),
+            check_tel = $idInputTel.val(),
+            check_date = $idInputDate.val(),
+            check_hour = $idInputHour.val(),
+            check_message = $idInputMessage.val(),
+            check_doctor,
+            email_regex = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/,
+            tel_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        
+
+        if($dataNameDoctor.length){
+            check_doctor = $dataNameDoctor.attr('data-name-doctor')
+        }
+
+        if($idSelectDoctor.length){
+            check_doctor = $idSelectDoctor.val()
+        }
+        
+        if(check_name.length < 4) error += "- Bạn chưa nhập tên\n";
+
+        if(check_email != ""){
+            if(email_regex.test(check_email) == false){
+                error += "- Bạn chưa nhập đúng định dạng email\n"
+            }
+        }else{
+            error += "- Bạn chưa nhập email\n"
+        }
+
+        if(check_tel != ""){
+            if(tel_regex.test(check_tel) == false){
+                error += "- Bạn chưa nhập đúng số điện thoại\n"
+            }
+        }else{
+            error += "- Bạn chưa nhập số điện thoại\n"
+        }
+
+        if(check_date.length < 10){
+            error += "- Bạn chưa nhập đăng ký ngày khám bệnh\n";
+        }else{
+            var d = new Date()
+            var n = d.getDate()
+            var t = d.getMonth()
+            if(n < 10) n = `0${n}`
+            if(t < 9) t = `0${t+1}`
+            var currentDate = parseInt(`${d.getFullYear()}${t}${n}`)
+            var orderDate = parseInt(check_date.split('-').join(''))
+            if(orderDate - currentDate < 0){
+                error += `- Bạn không thể đặt vào ngày ${check_date}\n`
+            }
+        }
+        if(check_hour.length < 5) error += "- Ban chưa nhập giờ đăng ký\n"
+        if(check_message.trim() == "") error += "- Bạn chưa nhập vào nội dung cần gửi\n"
+
+        if(error == ""){
+            return{
+                check_name,
+                check_tel,
+                check_email,
+                check_date,
+                check_hour,
+                check_message,
+                check_doctor,
+                $idInputName,
+                $idInputEmail,
+                $idInputTel,
+                $idInputHour,
+                $idInputDate,
+                $idInputMessage
+            }
+        }else{
+            alert(error)
+            return false
+        }
+
+    }
+}
+
 class AjaxGlee extends MainQuety {
 
     constructor(){
@@ -220,10 +374,11 @@ class AjaxGlee extends MainQuety {
 
         this.FormContact = {
             g_getElmentByTagName : {
+                $idTitleContact: $('#user_title_dl'),
                 $idInputName: $('#contact_name_detail'),
                 $idInputEmail: $('#contact_email_detail'),
                 $idInputTel: $('#contact_tel_detail'),
-                $idInputMessage: $('#contact_message_detail'),
+                $idInputMessage: $('#user_message_order'),
             },
             params: {
                 action_type: "contact",
@@ -272,8 +427,8 @@ class AjaxGlee extends MainQuety {
     }
 
     //lấy product danh mục article
-    getArticleCategory(mouse_id, show) {
-
+    getArticleCategory(mouse_id, show, itemTemplateTpl, wrapTemplateTpl, runSlide) {
+        var {runMultipleSwiper} = this
         var {idInnerHtml} = this.Article.ElementName
         var {idWrapArticle} = this.Article.ElementName
         var {params} = this.Article
@@ -285,55 +440,138 @@ class AjaxGlee extends MainQuety {
         //console.log(target)
 
         Hura.Ajax.get("article", params).then(function (data) {
-            var html = Hura.Template.parse(itemArticle, data.list);
+            console.log(data)
+            
+            var html = Hura.Template.parse(itemTemplateTpl, data.list);
+            var listItem = html;
+            if(wrapTemplateTpl){
+                listItem = wrapTemplateTpl
+                        .replace(new RegExp("{{list-item}}", "g"), html)
+            }
             if(html == ""){
                 $(`${idWrapArticle}-${mouse_id}`).hide()
             }
-            Hura.Template.render(target, html);
-
-            //runMultipleSwiperVr2(`${idWrapArticle}-${mouse_id}`, 3, 15);
+            Hura.Template.render(target, listItem);
+            if(runSlide){
+                runMultipleSwiper(runSlide)
+            }
+            
 
         })
 
     }
 
+    getNameDoctor(mouse_id, show, itemTemplateTpl){
+        var {idInnerHtml} = this.Article.ElementName
+        var {params} = this.Article
+        params.catId = mouse_id
+        params.show = show
+
+        var target = `${idInnerHtml}${mouse_id}`;
+
+        Hura.Ajax.get("article", params).then(function (data) {
+            console.log(data,'Doctor')
+            
+            var html = Hura.Template.parse(itemTemplateTpl, data.list);
+            var listItem = `
+                <select name="" id="user_select_doctor">
+                    <option value="Bệnh viện tự sắp xếp">Danh sách bác sĩ</option>
+                    ${html}
+                </select>
+            `;
+            
+            Hura.Template.render(target, listItem);
+            
+        })
+    }
+
     // Gửi form liên hệ
-    check_form_contact_detail() {
+    postFormContact() {
 
-        var {$idInputName} = this.FormContact.g_getElmentByTagName
-        var {$idInputEmail} = this.FormContact.g_getElmentByTagName
-        var {$idInputTel} = this.FormContact.g_getElmentByTagName
-
-        var error = "";
-        var check_name = $idInputName.val();
-        var check_email = $idInputEmail.val();
-        var check_tel = $idInputTel.val();
-        // var check_message = $idInputMessage.val();
-        //var check_captcha = document.getElementById('captcha').value;
-
-        if(check_name.length < 4) error += "- Bạn chưa nhập tên\n";
-        if(check_email.length < 4) error += "- Bạn chưa nhập email\n";
-        if(check_tel.length < 8) error += "- Bạn chưa nhập số điện thoại\n";
-        //if(check_captcha.length < 4) error += "- Bạn chưa nhập Mã bảo vệ\n";
-
-        if(error == ""){
-        
-            var {params} = this.FormContact
-            params.info.name = check_name
-            params.info.email = check_email
-            params.info.tel = check_tel
-
-            Hura.Ajax.post('customer', params).then(function (data) {
-                alert("Bạn đã gửi liên hệ thành công\nChúng tôi đã nhận được thông tin và sẽ liên hệ với quý khách trong thời gian sớm nhất");
-
-                $idInputName.val('')
-                $idInputEmail.val('')
-                $idInputTel.val('');
-            })
-        }else {
-            alert(error);
+        if(ValidationForm.checkFormContac() == false){
+            return 
         }
-        return false;
+        var resultValidateForm = ValidationForm.checkFormContac(),
+            {check_name, 
+                check_tel, 
+                check_email,
+                $idInputName,
+                $idInputEmail,
+                $idInputTel
+            } = resultValidateForm;
+        
+        var{$idInputMessage, $idTitleContact} = this.FormContact.g_getElmentByTagName
+
+        var {params} = this.FormContact
+        params.info.name = check_name
+        params.info.email = check_email
+        params.info.tel = check_tel
+        if($idTitleContact.length){
+            params.info.title = $idTitleContact.val()
+        }
+
+        if($idInputMessage.length){
+            params.info.message = $idInputMessage.val()
+        }
+
+        Hura.Ajax.post('customer', params).then(function (data) {
+            alert("Bạn đã gửi liên hệ thành công\nChúng tôi đã nhận được thông tin và sẽ liên hệ với quý khách trong thời gian sớm nhất");
+
+            $idInputName.val('')
+            $idInputEmail.val('')
+            $idInputTel.val('')
+
+            if($idTitleContact.length){
+                $idTitleContact.val('')
+            }
+
+            if($idInputMessage.length){
+                $idInputMessage.val('')
+            }
+        })
+        
+    }
+
+    // Gửi form đặt lịch đăng ký khám
+    postFormUserOrderDoctor() {
+        if(ValidationForm.checkFormOrder() == false){
+            return
+        }
+        var resultValidateForm = ValidationForm.checkFormOrder(),
+            {check_name, 
+                check_tel,
+                check_email,
+                check_date,
+                check_hour,
+                check_message,
+                check_doctor,
+                $idInputName,
+                $idInputEmail,
+                $idInputTel,
+                $idInputHour,
+                $idInputDate,
+                $idInputMessage
+            } = resultValidateForm;
+
+        var {params} = this.FormContact
+        params.info.name = check_name
+        params.info.email = check_email
+        params.info.tel = check_tel
+        params.info.title = check_doctor
+        params.info.message = `- Thời gian đặt lịch: ${check_hour} ${check_date}
+            - Bác sĩ: ${check_doctor}
+            - Nội dung: ${check_message}\n
+         `
+        Hura.Ajax.post('customer', params).then(function (data) {
+            alert("Bạn đã gửi liên hệ thành công\nChúng tôi đã nhận được thông tin và sẽ liên hệ với quý khách trong thời gian sớm nhất");
+
+            $idInputName.val('')
+            $idInputEmail.val('')
+            $idInputTel.val('')
+            $idInputHour.val('')
+            $idInputDate.val('')
+            $idInputMessage.val('')
+        })
     }
 
 }
